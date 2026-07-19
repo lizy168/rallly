@@ -214,8 +214,14 @@ async function onCustomerSubscriptionCreated(event: Stripe.Event) {
   );
 
   const isActive = isSubscriptionActive(subscription);
-  const { priceId, currency, interval, amount } =
-    getSubscriptionDetails(subscription);
+  const {
+    priceId,
+    currency,
+    interval,
+    amount,
+    discountPercentOff,
+    discountAmountOff,
+  } = getSubscriptionDetails(subscription);
 
   const res = subscriptionMetadataSchema.safeParse(subscription.metadata);
 
@@ -249,6 +255,8 @@ async function onCustomerSubscriptionCreated(event: Stripe.Event) {
         currency,
         interval,
         amount,
+        discountPercentOff,
+        discountAmountOff,
         status: subscription.status,
         createdAt: toDate(subscription.created),
         periodStart: toDate(subscription.current_period_start),
@@ -266,6 +274,8 @@ async function onCustomerSubscriptionCreated(event: Stripe.Event) {
         currency,
         interval,
         amount,
+        discountPercentOff,
+        discountAmountOff,
         status: subscription.status,
         createdAt: toDate(subscription.created),
         periodStart: toDate(subscription.current_period_start),
@@ -400,8 +410,14 @@ async function onCustomerSubscriptionUpdated(event: Stripe.Event) {
   );
 
   const isActive = isSubscriptionActive(subscription);
-  const { priceId, currency, interval, amount } =
-    getSubscriptionDetails(subscription);
+  const {
+    priceId,
+    currency,
+    interval,
+    amount,
+    discountPercentOff,
+    discountAmountOff,
+  } = getSubscriptionDetails(subscription);
 
   const res = subscriptionMetadataSchema.safeParse(subscription.metadata);
 
@@ -434,6 +450,8 @@ async function onCustomerSubscriptionUpdated(event: Stripe.Event) {
         subscriptionItemId,
         quantity,
         amount,
+        discountPercentOff,
+        discountAmountOff,
         status: subscription.status,
         periodStart: toDate(subscription.current_period_start),
         periodEnd: toDate(subscription.current_period_end),
@@ -450,6 +468,8 @@ async function onCustomerSubscriptionUpdated(event: Stripe.Event) {
         subscriptionItemId,
         quantity,
         amount,
+        discountPercentOff,
+        discountAmountOff,
         status: subscription.status,
         createdAt: toDate(subscription.created),
         periodStart: toDate(subscription.current_period_start),
