@@ -55,7 +55,6 @@ jobs:
       - name: Run tests
         run: yarn test:unit
 
-  # Label of the container job
   integration-tests:
     name: Integration tests
     runs-on: ubuntu-latest
